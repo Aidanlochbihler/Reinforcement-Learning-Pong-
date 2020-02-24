@@ -67,8 +67,8 @@ class PongGame(Widget):
             
 
     def move_rnd(self, dt):
-        self.player1.center_y = random.randint(2, 600) 
-        self.player2.center_y = random.randint(2, 600) 
+        self.player1.center_y = self.player1.center_y+random.randint(-1, 1) 
+        self.player2.center_y = self.player1.center_y+random.randint(-1, 1) 
         print(self.player1.center_y)
         print(self.player2.center_y)
 
@@ -79,7 +79,7 @@ class PongApp(App):
 
         #PongGame will run every 0.1 seconds
         Clock.schedule_interval(game.update, 1.0 / 20.0)
-        Clock.schedule_interval(game.move_rnd, 1.0 / 1.0)
+        Clock.schedule_interval(game.move_rnd, 1.0 / 100.0)
         return game
 
 
