@@ -16,6 +16,7 @@ class PongPaddle(Widget):
             vx, vy = ball.velocity
             offset = (ball.center_y - self.center_y) / (self.height / 2)
             bounced = Vector(-1 * vx, vy)
+            #Increases the speed of the ball on every hit
             vel = bounced * 1.1
             ball.velocity = vel.x, vel.y + offset
 
@@ -67,8 +68,11 @@ class PongGame(Widget):
             
 
     def move_rnd(self, dt):
-        self.player1.center_y = self.player1.center_y+random.randint(-1, 1) 
-        self.player2.center_y = self.player1.center_y+random.randint(-1, 1) 
+
+        self.player1.center_y = self.player1.center_y+random.randint(-50, 50) 
+
+
+        self.player2.center_y = self.player2.center_y+random.randint(-50, 50)  
         print(self.player1.center_y)
         print(self.player2.center_y)
 
@@ -78,8 +82,8 @@ class PongApp(App):
         game.serve_ball()
 
         #PongGame will run every 0.1 seconds
-        Clock.schedule_interval(game.update, 1.0 / 20.0)
-        Clock.schedule_interval(game.move_rnd, 1.0 / 100.0)
+        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        Clock.schedule_interval(game.move_rnd, 1.0 / 10.0)
         return game
 
 
