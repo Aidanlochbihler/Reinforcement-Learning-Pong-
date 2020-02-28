@@ -28,7 +28,8 @@ class PongBall(Widget):
 
     def move(self):
         self.pos = Vector(*self.velocity) + self.pos
-        print(self.pos)
+        print('ball', self.pos)
+        # Position of the ball 
 
 
 class PongGame(Widget):
@@ -51,6 +52,7 @@ class PongGame(Widget):
         if (self.ball.y < self.y) or (self.ball.top > self.top):
             self.ball.velocity_y *= -1
 
+            
         # went of to a side to score point?
         if self.ball.x < self.x:
             self.player2.score += 1
@@ -68,22 +70,25 @@ class PongGame(Widget):
             
 
     def move_rnd(self, dt):
-
+    	#
+        global game
         self.player1.center_y = self.player1.center_y+random.randint(-50, 50) 
-
-
-        self.player2.center_y = self.player2.center_y+random.randint(-50, 50)  
-        print(self.player1.center_y)
-        print(self.player2.center_y)
+        self.player2.center_y = self.player2.center_y+random.randint(-50, 50)
+        game.export_to_png('canvas.png')  #export a picture of the full canvas
+        print('P1', self.player1.center_y)
+        print('P2', self.player2.center_y)
 
 class PongApp(App):
     def build(self):
+        global game #needed to globally define the whole canvas on the application
         game = PongGame()
         game.serve_ball()
 
         #PongGame will run every 0.1 seconds
-        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        Clock.schedule_interval(game.update, 1.0 / 10.0)
         Clock.schedule_interval(game.move_rnd, 1.0 / 10.0)
+
+        
         return game
 
 
