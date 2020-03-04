@@ -7,7 +7,7 @@ from kivy.vector import Vector
 from kivy.clock import Clock
 import time
 import random 
-#test
+
 class PongPaddle(Widget):
     score = NumericProperty(0)
 
@@ -36,7 +36,7 @@ class PongGame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
-
+    count = 0
     def serve_ball(self, vel=(4, 0)):
         self.ball.center = self.center
         self.ball.velocity = vel
@@ -70,18 +70,46 @@ class PongGame(Widget):
             
 
     def move_rnd(self, dt):
-    	#
         global game
         self.player1.center_y = self.player1.center_y+random.randint(-50, 50) 
         self.player2.center_y = self.player2.center_y+random.randint(-50, 50)
-        game.export_to_png('frames\canvas.png')  #export a picture of the full canvas
+        game.export_to_png('frames\canva{}.png'.format(self.count))  #export a picture of the full canvas
+        self.count+=1
+        if self.count == 5: self.count=0
         print('P1', self.player1.center_y)
         print('P2', self.player2.center_y)
+
+class action_model():
+    def __init__(self, model):
+        self.model = model
+
+    def load_frames(self,):
+        #This function needs to np.load the 4 frames 
+        #make them grey scale
+        #sandwhich the 4 frames into a 3D matrix
+        return #return a numpy or tensor of the 4 frames together
+
+
+    def predict_q(self,):
+        #Uses self.model to predict the Q values
+        return #argmax(Q)
+
+    def action(self,):
+        #will have several if statements
+        #ex: if action=="up": move the paddle up 1
+        return
+
+    def back_prop(self,):
+        #update the loss of self.model
+        #mean squared error
+        return
 
 class PongApp(App):
     def build(self):
         global game #needed to globally define the whole canvas on the application
         game = PongGame()
+        model = 1 #make function build_model()
+        agent = action_model(model)
         game.serve_ball()
 
         #PongGame will run every 0.1 seconds
