@@ -74,7 +74,7 @@ class PongGame(Widget):
         global game
         self.player1.center_y = self.player1.center_y+random.randint(-50, 50) 
         self.player2.center_y = self.player2.center_y+random.randint(-50, 50)
-        game.export_to_png('canvas.png')  #export a picture of the full canvas
+        game.export_to_png('frames\canvas.png')  #export a picture of the full canvas
         print('P1', self.player1.center_y)
         print('P2', self.player2.center_y)
 
